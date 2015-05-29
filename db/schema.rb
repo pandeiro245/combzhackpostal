@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150529103052) do
+ActiveRecord::Schema.define(version: 20150529105912) do
 
   create_table "cities", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -22,24 +22,31 @@ ActiveRecord::Schema.define(version: 20150529103052) do
 
   add_index "cities", ["pref_id"], name: "index_cities_on_pref_id", using: :btree
 
+  create_table "postals", force: :cascade do |t|
+    t.string   "code",       limit: 255
+    t.integer  "pref_id",    limit: 4
+    t.integer  "city_id",    limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.string   "lot",        limit: 255
+    t.integer  "flag1",      limit: 4
+    t.integer  "flag2",      limit: 4
+    t.integer  "flag3",      limit: 4
+    t.integer  "flag4",      limit: 4
+    t.integer  "flag5",      limit: 4
+    t.integer  "flag6",      limit: 4
+  end
+
+  add_index "postals", ["city_id"], name: "index_postals_on_city_id", using: :btree
+  add_index "postals", ["pref_id"], name: "index_postals_on_pref_id", using: :btree
+
   create_table "prefs", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
 
-  create_table "zips", force: :cascade do |t|
-    t.string   "code",       limit: 255
-    t.integer  "pref_id",    limit: 4
-    t.integer  "city_id",    limit: 4
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
-  add_index "zips", ["city_id"], name: "index_zips_on_city_id", using: :btree
-  add_index "zips", ["pref_id"], name: "index_zips_on_pref_id", using: :btree
-
   add_foreign_key "cities", "prefs"
-  add_foreign_key "zips", "cities"
-  add_foreign_key "zips", "prefs"
+  add_foreign_key "postals", "cities"
+  add_foreign_key "postals", "prefs"
 end
