@@ -19,4 +19,4 @@ group :development, :test do
   gem 'spring'
 end
 
-gem 'roo', '~> 2.0.0'
+gem 'haml-rails', '~> 0.9'

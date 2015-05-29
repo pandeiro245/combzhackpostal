@@ -11,6 +11,7 @@ class Postal < ActiveRecord::Base
         next if row.header_row?
 
         table = Hash[[row.headers, row.fields].transpose]
+        
 
         postal = Postal.find_or_create_by(code: table['code'])
         postal.pref = Pref.find_or_create_by(name: table['pref'])
