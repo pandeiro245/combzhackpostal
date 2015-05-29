@@ -3,14 +3,17 @@
 ="#{number_to_currency(City.count)}市区町村、"
 ="#{number_to_currency(Postal.count)}件の郵便番号を解析しています。"
 
-%table{style: 'overflow: scroll;'}
-  %tr
-    - Pref.all.each do |pref|
-      %td{style: 'vertical-align: top'}
-        %h2="#{pref.name} (#{pref.cities.count}市区町村)"
-        - pref.cities.each do |city|
-          %h3=city.name
-          - if false
-            %ul
-              - city.postals.each do |postal|
-                %li="#{postal.code}: #{postal.lot}"
+%hr
+
+- Pref.all.each do |pref|
+  %span.pref
+    %h2{style: 'display: inline;'}= link_to pref.name, '#', {class: "pref_title pref#{pref.id}"}
+    %span.pref_city.off{style: 'display: none;'}
+      - pref.cities.each do |city|
+        %h3{style: 'display: inline;'}= link_to city.name, '#', {class: "city_title city#{city.id}"}
+        %ul.city_lot.off{style: 'display: none;'}
+          - city.postals.each do |postal|
+            %li="#{postal.code}: #{postal.lot}"
+
+
+
