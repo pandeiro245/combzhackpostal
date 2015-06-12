@@ -12,8 +12,9 @@
       - pref.cities.each do |city|
         %h3{style: 'display: inline;'}= link_to city.name, '#', {class: "city_title city#{city.id}"}
         %ul.city_lot.off{style: 'display: none;'}
-          - city.postals.each do |postal|
-            %li="#{postal.code}: #{postal.lot}"
+          - if false
+            - city.postals.each do |postal|
+              %li="#{postal.code}: #{postal.lot}"
 
 
 
