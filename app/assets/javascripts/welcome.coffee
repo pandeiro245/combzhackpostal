@@ -7,6 +7,7 @@ $(() ->
     else
       $pref_city.hide()
       $pref_city.addClass('off')
+    return false
   )
 
   $(document).on('click', '.city_title', () ->
@@ -17,5 +18,6 @@ $(() ->
     else
       $pref_city.hide()
       $pref_city.addClass('off')
+    return false
   )
 )

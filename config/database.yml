@@ -11,3 +11,12 @@ test:
   host: localhost
   username: root
   password:
+
+production:
+  adapter: mysql2
+  database: combzhackpostal_dev
+  host: localhost
+  username: root
+  password: 
+
+

@@ -1,9 +1,48 @@
+require 'CSV'
+
 class Postal < ActiveRecord::Base
   belongs_to :pref
   belongs_to :city
 
   def self.import
-    file_path = './KEN_ALL.csv'
+    file_path = './docs/001.csv'
+
+    pref_names = Pref.all.map{|pref| pref.name}
+
+    open(file_path, 'r:cp932:utf-8', undef: :replace) do |f|
+      csv = CSV.new(f, :headers => :first_row)
+      csv.each do |row|
+
+        table = Hash[[row.headers, row.fields].transpose]
+        address = table['address']
+
+        puts address
+
+        next if address.match(/^全国/)
+        if pref_names.include?(address)
+          @pref = Pref.find_by(name: address)
+          @pref.population2005 = table['population2005']
+          @pref.population2010 = table['population2010']
+          @pref.size = table['size']
+          @pref.save!
+        else
+          address = address.gsub(@pref.name, '').gsub(' ', '')
+          if @city = City.find_by(name: address, pref_id: @pref.id)
+            @city.population2005 = table['population2005']
+            @city.population2010 = table['population2010']
+            @city.size = table['size']
+            @city.save!
+          else
+            puts address
+          end
+        end
+      end
+    end
+    return 'done'
+  end
+
+  def self.import2
+    file_path = './docs/KEN_ALL.csv'
 
     open(file_path, 'r:cp932:utf-8', undef: :replace) do |f|
       csv = CSV.new(f, :headers => :first_row)

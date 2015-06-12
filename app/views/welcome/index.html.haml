@@ -1,4 +1,6 @@
-%h1 CombzHackPostalcode
+%h1=link_to 'CombzHackPostalcode2', 'https://github.com/pandeiro245/combzhackpostal/issues/4', {target: '_blank'}
+
+
 ="現在#{Pref.count}都道府県、"
 ="#{number_to_currency(City.count)}市区町村、"
 ="#{number_to_currency(Postal.count)}件の郵便番号を解析しています。"
@@ -7,10 +9,10 @@
 
 - Pref.all.each do |pref|
   %span.pref
-    %h2{style: 'display: inline;'}= link_to pref.name, '#', {class: "pref_title pref#{pref.id}"}
+    %h2{style: 'display: block;'}= link_to "#{pref.name}(#{pref.pop}万人)", '#', {class: "pref_title pref#{pref.id}"}
     %span.pref_city.off{style: 'display: none;'}
       - pref.cities.each do |city|
-        %h3{style: 'display: inline;'}= link_to city.name, '#', {class: "city_title city#{city.id}"}
+        %h3{style: 'display: inline;'}= link_to "#{city.name}(#{number_with_delimiter(city.pop)}人)", '#', {class: "city_title city#{city.id}"}
         %ul.city_lot.off{style: 'display: none;'}
           - if false
             - city.postals.each do |postal|
