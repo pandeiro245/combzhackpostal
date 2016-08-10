@@ -1,0 +1,5 @@
+- 1.upto(5).each do |years|
+  = link_to "#{years * 2}年分", "?years=#{years * 2}"
+
+%h1="過去#{@years}年分の日別変動値"
+= line_chart @lines

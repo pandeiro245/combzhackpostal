@@ -20,3 +20,5 @@ group :development, :test do
 end
 
 gem 'haml-rails', '~> 0.9'
+gem 'jpstock'
+gem "chartkick"
